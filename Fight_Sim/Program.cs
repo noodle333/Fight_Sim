@@ -7,26 +7,39 @@ namespace Fight_Sim
     {
         static void Main(string[] args)
         {
+            //TO DO: HP CANT GO BELOW 0. FLOOR OR CLAMP? SPECIAL ITEMS TO CHOOSE FROM
             Fighter player = new Fighter("Player");
             Fighter bot = new Fighter("Enemy");
             
             Console.WriteLine($"Welcome {player.name} and {bot.name}.");
             Console.WriteLine($"{player.name}, your opponent {bot.name} has chosen the {bot.weapon.weaponName}.");
             player.weapon.PlayerWeapon();
+            player.item.PlayerItem();
 
             player.weapon.StrongOrWeakAgainst(bot.weapon);
             bot.weapon.StrongOrWeakAgainst(player.weapon);
-            Console.ReadLine();
 
-            // player.ChooseWeapon(Console.ReadLine());
-            
-            while (player.isAlive && bot.isAlive)
+            //GAME LOOP
+            while (player.GetAlive() && bot.GetAlive())
             {
+                player.Attack(bot);
+                bot.Attack(player);
+                Console.WriteLine($"{player.name} has {player.hp} hp. DAMN");
+                Console.WriteLine($"{bot.name} has {bot.hp} hp. DAMN");
                 
+                player.GetAlive();
+                bot.GetAlive();
             }
-            //Each tick, attack each other w weapon
-            //Each figther attack method that has the opponent as a target
-            //When game loop ends, show result
+
+            //CHECK WINNER
+            if (player.hp > bot.hp)
+            {
+                Console.WriteLine($"{player.name} wins! What a fight!");                
+            }
+            else {
+                Console.WriteLine($"{bot.name} wins! What a pathetic attempt!");
+            }
+            Console.ReadLine();
         }
     }
 }

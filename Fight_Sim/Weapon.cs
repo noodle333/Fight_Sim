@@ -13,7 +13,11 @@ namespace Fight_Sim
 
         public void Damage(Fighter target)
         {
+            Random gen = new Random();
+            
+            int damage = gen.Next(weaponDmg-2, weaponDmg);
 
+            target.hp -= damage;
         }
 
         public void EnemyWeapon()
@@ -39,16 +43,11 @@ namespace Fight_Sim
 
         public void StrongOrWeakAgainst(Weapon t)
         {
-            //Strong against
+            //Checks counters
             if (weaponName == "Bow" && t.weaponName == "Sword" || weaponName == "Sword" && t.weaponName == "Axe" || weaponName == "Axe" && t.weaponName == "Bow")
             {
                 weaponDmg += 2;
             }
-        }
-
-        public void Choose(string input)
-        {
-            
         }
     }
 }
