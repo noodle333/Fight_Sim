@@ -14,6 +14,8 @@ namespace Fight_Sim
             Console.WriteLine($"Welcome {player.name} and {bot.name}.");
             Console.WriteLine($"{player.name}, your opponent {bot.name} has chosen the {bot.weapon.weaponName}.");
             player.weapon.PlayerWeapon();
+
+            Console.WriteLine($"{player.name}, your opponent has chosen the {bot.item.itemName}.");
             player.item.PlayerItem();
 
             player.weapon.StrongOrWeakAgainst(bot.weapon);
@@ -24,6 +26,20 @@ namespace Fight_Sim
             {
                 player.Attack(bot);
                 bot.Attack(player);
+
+                player.item.ItemEffect(player, bot);
+                bot.item.ItemEffect(bot, player);   
+
+                if (bot.hp <= 0)
+                {
+                    Console.WriteLine($"{player.name} lands a fatal blow! DAMN!");
+                    break;
+                }
+                else if (player.hp <= 0)
+                {
+                    Console.WriteLine($"{bot.name} lands a fatal blow! DAMN!");
+                    break;
+                }
                 Console.WriteLine($"{player.name} has {player.hp} hp. DAMN");
                 Console.WriteLine($"{bot.name} has {bot.hp} hp. DAMN");
                 
